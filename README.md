@@ -25,7 +25,8 @@ For Eclipse please use wizard for new project , I can not find documentation on 
 
  *  `mvn archetype:generate -B  -DarchetypeGroupId=it.service   -DarchetypeArtifactId=service-boot-archetypes   -DarchetypeVersion=1.0-SNAPSHOT   -DgroupId=com.company   -DartifactId=project  -Dversion=1.0-SNAPSHOT   -Dpackage=com.company.project`
 
-
+# 16/12/2021  added log configuration
+Added logBack configuration in application properties and logback-spring.xml
 
 
 
