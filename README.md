@@ -28,5 +28,10 @@ For Eclipse please use wizard for new project , I can not find documentation on 
 # 16/12/2021  added log configuration
 Added logBack configuration in application properties and logback-spring.xml
 
+# 05/01/2021 Added jacoco plugin 
+Added for covered test code version 0.8.7 after junit test run you can find covered source under directory
+<project-directory>>\target\site\jacoco. Plugin create file report  index.html with statistics .
+Added new file properties for test profile.
+
 
 
