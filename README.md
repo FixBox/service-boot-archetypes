@@ -33,5 +33,11 @@ Added for covered test code version 0.8.7 after junit test run you can find cove
 <project-directory>>\target\site\jacoco. Plugin create file report  index.html with statistics .
 Added new file properties for test profile.
 
+# 22/11/2023 Updated dependency version Jacoco and migrate from Junit 4 to Junit 5
+Migrate from Junit 4 to Junit 5
+Updated Jacoco Version dependency
+Added server.servlet.context-path in properties files now the swagger documentation page is
+http://<IP>:<PORT>/<PROJECT_NAME>/swagger-ui.html (ex: http://localhost:8081/test/swagger-ui.html)
+
 
 
