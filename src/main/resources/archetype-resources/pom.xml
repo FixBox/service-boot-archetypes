@@ -20,6 +20,8 @@
     <properties>
         <jacocoVersion>0.8.11</jacocoVersion>
         <juni5Version>5.10.1</juni5Version>
+        <mySqlconnectorVersion>8.0.33</mySqlconnectorVersion>
+        <postgersSqlconnectorVersion>42.7.0</postgersSqlconnectorVersion>
     </properties>
 
     <dependencyManagement>
@@ -53,7 +55,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <version>${mySqlconnectorVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgersSqlconnectorVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>
