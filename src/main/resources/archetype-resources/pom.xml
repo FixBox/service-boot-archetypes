@@ -2,6 +2,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <jacocoVersion>0.8.11</jacocoVersion>
+        <juni5Version>5.10.1</juni5Version>
+        <mySqlconnectorVersion>8.0.33</mySqlconnectorVersion>
+        <postgersSqlconnectorVersion>42.7.0</postgersSqlconnectorVersion>
+        <modelMapperVersion>2.3.8</modelMapperVersion>
+        <springfoxSwagger2Version>2.9.2</springfoxSwagger2Version>
+        <springfoxSwaggerUiVersion>2.9.2</springfoxSwaggerUiVersion>
+        <lombokVersion>1.18.12</lombokVersion>
+        <project.name>${project.name}</project.name>
+        <flywayMysqlVersion>9.9.0</flywayMysqlVersion>
+    </properties>
+
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
@@ -17,12 +30,20 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <properties>
-        <jacocoVersion>0.8.11</jacocoVersion>
-        <juni5Version>5.10.1</juni5Version>
-        <mySqlconnectorVersion>8.0.33</mySqlconnectorVersion>
-        <postgersSqlconnectorVersion>42.7.0</postgersSqlconnectorVersion>
-    </properties>
+    <profiles>
+        <profile>
+            <id>mySql-migration</id>
+            <properties>
+                <fileFlyWayConfig>src/main/resources/flyWay.config/mySqlConfig.properties</fileFlyWayConfig>
+            </properties>
+        </profile>
+        <profile>
+            <id>postgreSQL-migration</id>
+            <properties>
+                <fileFlyWayConfig>src/main/resources/flyWay.config/postgreSqlConfig.properties</fileFlyWayConfig>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -45,12 +66,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>${springfoxSwaggerUiVersion}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>${springfoxSwagger2Version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -65,12 +86,12 @@
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>2.3.8</version>
+            <version>${modelMapperVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>${lombokVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -97,6 +118,11 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+            <version>${flywayMysqlVersion}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -119,6 +145,14 @@
                         <goals><goal>report</goal></goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>9.21.0</version>
+                <configuration>
+                    <configFiles>${fileFlyWayConfig}</configFiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>

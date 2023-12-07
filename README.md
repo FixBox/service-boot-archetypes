@@ -39,5 +39,70 @@ Updated Jacoco Version dependency
 Added server.servlet.context-path in properties files now the swagger documentation page is
 http://<IP>:<PORT>/<PROJECT_NAME>/swagger-ui.html (ex: http://localhost:8081/test/swagger-ui.html)
 
+# 06/12/2023 Implemented postgreSQL and Mysql connection added flyway plugin for migrate with 2 profile 
+Added postgreSQL and MySql connection dependency  .
+Added flyway plugin .
+Create 2 pom profiles mySql-migration and  postgreSQL-migration  for migrate db .
+When project is create from the Archetype execution in directory flyWay.config/mySqlConfig.properties you can push 
+your flyWay properties file .
+By default, exist 2 file mySqlConfig.properties for MySql and postgreSqlConfig.properties the properties for JPA and 
+Hibernate connection are in directory resources properties are stored in application-<PROFILE>.properties files :  
 
+ > ### DB -MySql
+ >  #spring.datasource.url=jdbc:mysql://localhost:3306/localTest?serverTimezone=UTC
+    #spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+    #spring.datasource.username=root
+    #spring.datasource.password=password
+    #spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
+    #spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    #spring.jpa.properties.hibernate.format_sql=true
+
+
+>### DB -postgresSql
+>   spring.datasource.url=jdbc:postgresql://localhost:5432/localTest?ApplicationName=localTest
+    spring.datasource.driverClassName=org.postgresql.Driver
+    spring.datasource.username=postgres
+    spring.datasource.password=password
+    spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL9Dialect
+    spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    spring.jpa.properties.hibernate.format_sql=true
+
+Comment or uncomment the properties for your db :
+
+For add new properties db add a block in application-<PROFILE>.properties and add profile in pom.xml of your application 
+and add file properties in flyWay.config example :
+
+  For Oracle in pom.xml in section <dependencies> </dependencies> add
+
+    <dependency>
+        <groupId>com.oracle.database.jdbc</groupId>
+        <artifactId>ojdbcXXXX</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+in pom.xml section profile create :
+
+    <profile>
+            <id>oracle-migration</id>
+            <properties>
+                <fileFlyWayConfig>src/main/resources/flyWay.config/oracleConfig.properties</fileFlyWayConfig>
+            </properties>
+    </profile>
+Add file oracleConfig.properties in directory flyWay.config.
+
+for migrate db by command line (example for mySql but same command for others db ):
+
+    mvn flyway:migrate -P mySql-migration
+
+for start service create :
+
+    java -jar <jourApplication>.jar --spring.profiles.active=local
+
+after service start you can see port and context path in your console :
+
+>2023-12-07 14:25:44,833 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer: Tomcat started on **port(s): 8082 (http)** with **context path '/testArchetipo4'**
+>2023-12-07 14:25:44,835 INFO  [main] org.springframework.boot.StartupInfoLogger: Started Application in 16.796 seconds (JVM running for 17.424)
+
+swagger documentation on :
+ > 'http://localhost:<your_port>/**<your_context_path>**/swagger-ui.html
 
