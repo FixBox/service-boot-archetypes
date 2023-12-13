@@ -12,6 +12,7 @@
         <springfoxSwaggerUiVersion>2.9.2</springfoxSwaggerUiVersion>
         <lombokVersion>1.18.12</lombokVersion>
         <project.name>${project.name}</project.name>
+        <base.package>${package}</base.package>
         <flywayMysqlVersion>9.9.0</flywayMysqlVersion>
     </properties>
 
