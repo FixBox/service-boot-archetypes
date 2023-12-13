@@ -1,4 +1,4 @@
-# service-boot-archetypes
+# service-boot-archetypes based on spring-boot-starter-parent 2.5.4
 service boot archetypes
 
 Maven Archetype for create the base of spring boot service with base swagger configurated and configuration base for Model Mapper  .
